@@ -9,6 +9,7 @@ public class Detection : MonoBehaviour, ITrackableEventHandler
     TrackableBehaviour mTrackableBehaviour;
 
     public UnityEngine.UI.Image imgDetection;
+    public string URL;
 
     void Start () {
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
@@ -39,5 +40,10 @@ public class Detection : MonoBehaviour, ITrackableEventHandler
         {
             // COMIENZO
         }
+    }
+
+    private void OnMouseDown()
+    {
+        Application.OpenURL(URL);
     }
 }

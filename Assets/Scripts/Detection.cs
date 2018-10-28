@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Vuforia;
 
 public class Detection : MonoBehaviour, ITrackableEventHandler
 {
     TrackableBehaviour mTrackableBehaviour;
 
+    public UnityEngine.UI.Image imgDetection;
+
     void Start () {
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
             mTrackableBehaviour.RegisterTrackableEventHandler(this);
+
+        imgDetection.color = Color.red;
     }
 
     public void OnTrackableStateChanged(
@@ -22,12 +27,13 @@ public class Detection : MonoBehaviour, ITrackableEventHandler
             newStatus == TrackableBehaviour.Status.TRACKED ||
             newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
-            // DETECTA
+            imgDetection.color = Color.green;
         }
         else if (previousStatus == TrackableBehaviour.Status.TRACKED &&
                  newStatus == TrackableBehaviour.Status.NO_POSE)
         {
-            // PIERDE
+            imgDetection.color = Color.red;
+            //EasyVibro.Vibrate(60);
         }
         else
         {
